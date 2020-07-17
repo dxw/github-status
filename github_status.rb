@@ -23,11 +23,11 @@ if current_indicator != previous_indicator
   File.open('github_status.yml', 'w') {|f| f.write new_status }
 
   if current_indicator == "none"
-    message = "GitHub incident has now been resolved. For further info, visit https://www.githubstatus.com"
+    message = "GitHub incident has now been resolved. #{current_description}. For further info, visit https://www.githubstatus.com"
   elsif previous_indicator == "none"
-    message = "GitHub is experiencing #{current_indicator} issues at the moment. For further info, visit https://www.githubstatus.com"
+    message = "GitHub is experiencing #{current_indicator} issues at the moment (#{current_description}). For further info, visit https://www.githubstatus.com"
   else
-    message = "GitHub status has changed, from #{previous_indicator} issues to #{current_indicator} issues. For further info, visit https://www.githubstatus.com"
+    message = "GitHub status has changed, from #{previous_indicator} issues to #{current_indicator} issues (#{current_description}). For further info, visit https://www.githubstatus.com"
   end
 
   Net::HTTP.post URI(ENV["SLACK_WEBHOOK_URL"]),
