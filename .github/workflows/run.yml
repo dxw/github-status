@@ -1,0 +1,41 @@
+name: Report GitHub status
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_REGION: eu-west-2
+  AWS_BUCKET: github-status-app
+  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+jobs:
+  report_status:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: ruby/setup-ruby@v1
+
+      - name: Set up Bundler
+        run: |
+          gem install bundler
+          bundle config set path vendor/bundle
+          bundle config set frozen
+
+      - name: Cache Ruby dependencies
+        uses: actions/cache@v2.1.4
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Install dependencies
+        run: bundle install
+
+      - name: Run
+        run: ruby github_status.rb
