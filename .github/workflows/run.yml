@@ -24,7 +24,7 @@ jobs:
         run: |
           gem install bundler
           bundle config set path vendor/bundle
-          bundle config set frozen
+          bundle config set frozen true
 
       - name: Cache Ruby dependencies
         uses: actions/cache@v2.1.4
