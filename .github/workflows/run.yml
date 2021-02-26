@@ -38,4 +38,4 @@ jobs:
         run: bundle install
 
       - name: Run
-        run: ruby github_status.rb
+        run: bundle exec ruby github_status.rb
