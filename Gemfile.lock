@@ -20,7 +20,7 @@ GEM
     diff-lcs (1.4.4)
     dotenv (2.7.6)
     jmespath (1.4.0)
-    rake (13.0.3)
+    rake (13.0.6)
     rspec (3.9.0)
       rspec-core (~> 3.9.0)
       rspec-expectations (~> 3.9.0)
