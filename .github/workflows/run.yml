@@ -27,7 +27,7 @@ jobs:
           bundle config set frozen true
 
       - name: Cache Ruby dependencies
-        uses: actions/cache@v3.0.11
+        uses: actions/cache@v3.3.0
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
